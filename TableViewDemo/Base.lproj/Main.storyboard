@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Table View Demo Controller-->
         <scene sceneID="KXm-GN-ZWH">
             <objects>
-                <viewController id="v9J-FD-ySB" customClass="ViewController" customModule="TableViewDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="v9J-FD-ySB" customClass="TableViewDemoController" customModule="TableViewDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ILb-QM-lBQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,6 +122,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="aoQ-qn-JPV"/>
+        <segue reference="zMR-YS-Ftm"/>
     </inferredMetricsTieBreakers>
 </document>

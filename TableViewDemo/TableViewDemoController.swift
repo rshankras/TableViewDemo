@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TableViewDemoController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
     
-    var data:[SocialMedia]? = [SocialMedia]()
+    var data:[SocialMedia] = [SocialMedia]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +28,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK:- TabvleView dataSource methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data!.count
+        return data.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as! UITableViewCell
         
-        let socialMedia = data?[indexPath.row]
+        let socialMedia = data[indexPath.row]
         
-        cell.textLabel?.text = socialMedia?.name
-        cell.imageView?.image = socialMedia?.image
+        cell.textLabel?.text = socialMedia.name
+        cell.imageView?.image = socialMedia.image
         
         return cell
     }
@@ -50,26 +50,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return 60.0
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    @IBAction func startEditing(sender: UIBarButtonItem) {
-        tableView.editing = !tableView.editing
-    }
-    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         switch editingStyle {
         case .Delete:
             // remove the deleted item from the model
-            data?.removeAtIndex(indexPath.row)
+            data.removeAtIndex(indexPath.row)
             
             // remove the deleted item from the `UITableView`
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         default:
             return
         }
-
+        
     }
     
     //MARK:- TableViewCell Move row methods
@@ -81,26 +73,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView,
         moveRowAtIndexPath sourceIndexPath: NSIndexPath,
         toIndexPath destinationIndexPath: NSIndexPath) {
-            let val = data?.removeAtIndex(sourceIndexPath.row)
-            data?.insert(val!, atIndex: destinationIndexPath.row)
+            let val = data.removeAtIndex(sourceIndexPath.row)
+            data.insert(val, atIndex: destinationIndexPath.row)
     }
     
     //MARK:- Populate data
     
     func loadData() -> [SocialMedia] {
         
-        data?.append(SocialMedia(name:"Evernote",imageName:"evernote"))
-        data?.append(SocialMedia(name:"Facebook",imageName:"facebook"))
-        data?.append(SocialMedia(name:"GitHub",imageName:"github"))
-        data?.append(SocialMedia(name:"Google",imageName:"google"))
-        data?.append(SocialMedia(name:"LinkedIn",imageName:"linkedin"))
-        data?.append(SocialMedia(name:"Paypal",imageName:"paypal"))
-        data?.append(SocialMedia(name:"Pinterest",imageName:"pinterest"))
-        data?.append(SocialMedia(name:"Twitter",imageName:"twitter"))
-        data?.append(SocialMedia(name:"Vimeo",imageName:"vimeo"))
-        data?.append(SocialMedia(name:"youtube",imageName:"YouTube"))
+        data.append(SocialMedia(name:"Evernote",imageName:"evernote"))
+        data.append(SocialMedia(name:"Facebook",imageName:"facebook"))
+        data.append(SocialMedia(name:"GitHub",imageName:"github"))
+        data.append(SocialMedia(name:"Google",imageName:"google"))
+        data.append(SocialMedia(name:"LinkedIn",imageName:"linkedin"))
+        data.append(SocialMedia(name:"Paypal",imageName:"paypal"))
+        data.append(SocialMedia(name:"Pinterest",imageName:"pinterest"))
+        data.append(SocialMedia(name:"Twitter",imageName:"twitter"))
+        data.append(SocialMedia(name:"Vimeo",imageName:"vimeo"))
+        data.append(SocialMedia(name:"youtube",imageName:"YouTube"))
         
-        return data!
+        return data
     }
     
     //MARK:- Prepare Segue
@@ -112,7 +104,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let detailViewController:DetailViewController = segue.destinationViewController as! DetailViewController
             
             detailViewController.index = selectedRow
-            detailViewController.socialMedia = data?[selectedRow!]
+            detailViewController.socialMedia = data[selectedRow!]
         }
     }
     
@@ -127,11 +119,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let detailViewController = segue.sourceViewController as! DetailViewController
         let socialMedia = detailViewController.socialMedia
         if let selectedIndex = detailViewController.index {
-            data?[selectedIndex] = socialMedia!
+            data[selectedIndex] = socialMedia!
         } else {
-            data?.append(socialMedia!)
+            data.append(socialMedia!)
         }
         tableView.reloadData()
+    }
+    
+    //MARK:- Editing toggle
+    
+    @IBAction func startEditing(sender: UIBarButtonItem) {
+        tableView.editing = !tableView.editing
     }
 }
 
