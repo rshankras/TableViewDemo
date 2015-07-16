@@ -14,27 +14,24 @@ class DetailViewController: UIViewController {
     var index:Int?
     
     @IBOutlet var textFeild:UITextField?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if let name = socialMedia?.name {
             textFeild?.text = name
         }
     }
-
+    
     // MARK:- PrepareForSegue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let name = textFeild?.text
-        
-        if segue.identifier == "addAction" {
-            if var socialMedia = socialMedia {
-                self.socialMedia?.name = name!
-            } else {
-                socialMedia = SocialMedia(name:name!,imageName:"unknown")
-            }
+        if var socialMedia = socialMedia {
+            self.socialMedia?.name = name!
+        } else {
+            socialMedia = SocialMedia(name:name!,imageName:"unknown")
         }
     }
     

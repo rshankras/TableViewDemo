@@ -18,6 +18,7 @@ class TableViewDemoController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         loadData()
+        navigationItem.rightBarButtonItem = editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +39,7 @@ class TableViewDemoController: UIViewController, UITableViewDataSource, UITableV
         let socialMedia = data[indexPath.row]
         
         cell.textLabel?.text = socialMedia.name
+
         cell.imageView?.image = socialMedia.image
         
         return cell
@@ -90,7 +92,7 @@ class TableViewDemoController: UIViewController, UITableViewDataSource, UITableV
         data.append(SocialMedia(name:"Pinterest",imageName:"pinterest"))
         data.append(SocialMedia(name:"Twitter",imageName:"twitter"))
         data.append(SocialMedia(name:"Vimeo",imageName:"vimeo"))
-        data.append(SocialMedia(name:"youtube",imageName:"YouTube"))
+        data.append(SocialMedia(name:"YouTube",imageName:"youtube"))
         
         return data
     }
@@ -118,6 +120,7 @@ class TableViewDemoController: UIViewController, UITableViewDataSource, UITableV
         
         let detailViewController = segue.sourceViewController as! DetailViewController
         let socialMedia = detailViewController.socialMedia
+        
         if let selectedIndex = detailViewController.index {
             data[selectedIndex] = socialMedia!
         } else {
@@ -130,6 +133,11 @@ class TableViewDemoController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func startEditing(sender: UIBarButtonItem) {
         tableView.editing = !tableView.editing
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        tableView.editing = editing
+        super.setEditing(editing, animated: true)
     }
 }
 
